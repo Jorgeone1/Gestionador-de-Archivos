@@ -18,13 +18,19 @@ public class GestorDeArchivos {
 
     public static void main(String[] args) {
         miVentana v = new miVentana();
+        centro panel = new centro();
         v.setVisible(true);
     }
 }
 
 class miVentana extends JFrame{
     public miVentana(){
-        setBounds(100,100,1250,750);
+        
+        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int anchura = (int) (0.8 *(int)screenSize.getWidth());
+        int altura = (int) ((int)screenSize.getHeight()*0.8);
+        
+        setSize(anchura,altura);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel pan = new panel();
         add(pan);
@@ -42,12 +48,47 @@ class panel extends JPanel{
         JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelNorte.add(titulo);
         add(panelNorte,BorderLayout.NORTH);
+        sur panelSur = new sur();
+        add(panelSur,BorderLayout.SOUTH);
     }
 }
 
 class centro extends JPanel{
-    private File f;
+    private JFrame ventanaLeer;
     public centro(){
+        ventanaLeer = new JFrame();
+         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int anchura = (int) (0.8 *(int)screenSize.getWidth());
+        int altura = (int) ((int)screenSize.getHeight()*0.8);
+        
+        ventanaLeer.setSize(anchura,altura);
+        ventanaLeer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel panelLeer = new JPanel(new BorderLayout());
+        JTextArea ta = new JTextArea();
+        JScrollPane jp = new JScrollPane(ta);
+        panelLeer.add(jp,BorderLayout.CENTER);
+        
+        JLabel tituloLeer = new JLabel("Titulo");
+        Font timesNewRomanBold = new Font("Times New Roman", Font.BOLD, 50);
+        tituloLeer.setFont(timesNewRomanBold);
+        JPanel panelTituloLeer = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelTituloLeer.add(tituloLeer);
+        
+        JButton volverLeer = new JButton("Volver a Menu");
+        JButton OtroArchivoLeer = new JButton("Seleccionar Otro Archivo");
+        JLabel archivoActualLeer = new JLabel("Nombre Archivo");
+        JButton Confirmar = new JButton("Confirmar");
+        JPanel abajoLeer = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        
+        abajoLeer.add(volverLeer);
+        abajoLeer.add(OtroArchivoLeer);
+        abajoLeer.add(archivoActualLeer);
+        abajoLeer.add(Confirmar);
+        
+        panelLeer.add(panelTituloLeer, BorderLayout.NORTH);
+        panelLeer.add(abajoLeer,BorderLayout.SOUTH);
+        ventanaLeer.add(panelLeer);
+        
         BotonPersonalizado bPermisos = new BotonPersonalizado("Permisos");
         BotonPersonalizado bCopiar = new BotonPersonalizado("Copiar");
         BotonPersonalizado bCrear = new BotonPersonalizado("Crear Fichero");
@@ -123,7 +164,7 @@ class centro extends JPanel{
         bExtension.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-             
+             extensiones();
             } 
         });
         bLeer.addActionListener(new ActionListener(){
@@ -150,15 +191,43 @@ class centro extends JPanel{
              
             } 
         });
+        
     }
-    
+    public static void extensiones(){
+        JFileChooser jf = new JFileChooser();
+        jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        jf.showOpenDialog(jf);
+        File directorios = jf.getSelectedFile();
+        String extension = JOptionPane.showInputDialog(null, "Inserte el tipo de extension que quiera buscar");
+        File[] listaArchivos = directorios.listFiles();
+        String lista ="";
+        for(File f: listaArchivos){
+            if(extension == f.getName().substring(f.getName().lastIndexOf(".")+1)){
+                lista += f.getName() +"\n";
+            }
+        }
+        JOptionPane.showMessageDialog(null, lista);
+    }
 }
-
+class sur extends JPanel{
+    public sur(){
+        JLabel autor = new JLabel("Creado por Jorge Wang");
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+        add(autor);
+        Font timesNewRomanBold = new Font("Times New Roman", Font.ITALIC, 20);
+        autor.setFont(timesNewRomanBold);
+    }
+}
 class BotonPersonalizado extends JButton {
     public BotonPersonalizado(String texto) {
         super(texto);
         setContentAreaFilled(false); // Hace que el fondo del botón sea transparente
         setFocusPainted(false); // Elimina el borde de enfoque
+
+        // Cambia el estilo de fuente y color del texto
+        setFont(new Font("Arial", Font.BOLD, 18)); // Personaliza la fuente (nombre, estilo, tamaño)
+        setForeground(Color.WHITE); // Color del texto
+
     }
 
     @Override
@@ -183,5 +252,4 @@ class BotonPersonalizado extends JButton {
         int height = getHeight();
         g.drawRect(0, 0, width - 1, height - 1); // Dibuja un rectángulo como borde
     }
-
 }
