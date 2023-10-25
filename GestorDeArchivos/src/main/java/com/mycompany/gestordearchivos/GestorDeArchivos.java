@@ -42,8 +42,6 @@ class panel extends JPanel{
         JPanel panelNorte = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelNorte.add(titulo);
         add(panelNorte,BorderLayout.NORTH);
-        sur partesur = new sur();
-        add(partesur,BorderLayout.SOUTH);
     }
 }
 
@@ -52,12 +50,12 @@ class centro extends JPanel{
     public centro(){
         BotonPersonalizado bPermisos = new BotonPersonalizado("Permisos");
         BotonPersonalizado bCopiar = new BotonPersonalizado("Copiar");
-        BotonPersonalizado bCrear = new BotonPersonalizado("Crear Fichero(i)");
-        BotonPersonalizado bBorrar = new BotonPersonalizado("Borrar(i)");
+        BotonPersonalizado bCrear = new BotonPersonalizado("Crear Fichero");
+        BotonPersonalizado bBorrar = new BotonPersonalizado("Borrar");
         BotonPersonalizado bExtension = new BotonPersonalizado("Extensiones");
-        BotonPersonalizado bLeer = new BotonPersonalizado("Leer Ficheros(i)");
-        BotonPersonalizado bEscribir = new BotonPersonalizado("Escribir Fichero(i)");
-        BotonPersonalizado bRuta = new BotonPersonalizado("Ruta Fichero(i)");
+        BotonPersonalizado bLeer = new BotonPersonalizado("Leer Ficheros");
+        BotonPersonalizado bEscribir = new BotonPersonalizado("Escribir Fichero");
+        BotonPersonalizado bRuta = new BotonPersonalizado("Ruta Fichero");
         BotonPersonalizado bListadoD = new BotonPersonalizado("Listado Directorios");
         setLayout(new GridLayout(3,3,50,30));
         
@@ -92,40 +90,68 @@ class centro extends JPanel{
         add(bPermisos);
         add(bCopiar);
         add(bCrear);
-       add(bBorrar);
+        add(bBorrar);
         add(bExtension);
         add(bLeer);
-
         add(bEscribir);
         add(bRuta);
         add(bListadoD);        
-    }
-}
-class sur extends JPanel{
-    private File ficheroSeleccionado;
-    JLabel nombreRuta;
-    public sur(){
-        setLayout(new FlowLayout(FlowLayout.CENTER));
-        nombreRuta = new JLabel("El Archivo Seleccionado");
-        JButton botonSeleccionArchivo = new JButton("Selecciona Archivo");
-        BotonCircular botonAyuda = new BotonCircular("?");
-        add(botonSeleccionArchivo);
-        add(nombreRuta);
-        add(botonAyuda);
-        botonSeleccionArchivo.addActionListener(new ActionListener(){
+        bPermisos.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser jf = new JFileChooser();
-                jf.showOpenDialog(jf);
-                ficheroSeleccionado = jf.getSelectedFile();
-                nombreRuta.setText(ficheroSeleccionado.getName());
-            }
-            
+             
+            } 
+        });
+        bCopiar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bCrear.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bBorrar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bExtension.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bLeer.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bEscribir.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bRuta.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
+        });
+        bListadoD.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             
+            } 
         });
     }
-    public void Resetear(){
-        nombreRuta.setText("El Archivo Seleccionado");
-    }
+    
 }
 
 class BotonPersonalizado extends JButton {
@@ -159,42 +185,3 @@ class BotonPersonalizado extends JButton {
     }
 
 }
-
-class BotonCircular extends JButton {
-    public BotonCircular(String texto) {
-        super(texto);
-        setContentAreaFilled(false); // Hace que el fondo del botón sea transparente
-        setFocusPainted(false); // Elimina el borde de enfoque
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        int width = getWidth();
-        int height = getHeight();
-
-        // Creamos un círculo que se ajuste al tamaño del botón
-        Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, width, height);
-
-        // Establecemos el color del fondo del botón
-        if (getModel().isArmed()) {
-            // Si se hace clic en el botón, utiliza un color más oscuro
-            g2d.setColor(new Color(128, 128, 128));
-        } else {
-            g2d.setColor(getBackground());
-        }
-
-        g2d.fill(circle); // Rellena el círculo con el color de fondo
-
-        super.paintComponent(g);
-    }
-
-    @Override
-    protected void paintBorder(Graphics g) {
-        // Dibuja un borde alrededor del botón
-        g.setColor(Color.BLUE);
-        int width = getWidth();
-        int height = getHeight();
-        g.drawOval(0, 0, width - 1, height - 1); // Dibuja un óvalo como borde
-    }
-    }
