@@ -122,32 +122,33 @@ class centro extends JPanel {
         BotonPersonalizado bRuta = new BotonPersonalizado("Ruta Fichero");
         BotonPersonalizado bListadoD = new BotonPersonalizado("Listado Directorios");
         setLayout(new GridLayout(3, 3, 10, 5));
-
-        ImageIcon iconoPermisos = new ImageIcon("Permisos.png");
+        
+        String currentDirectory = System.getProperty("user.dir");
+        ImageIcon iconoPermisos = new ImageIcon(currentDirectory+"\\Permisos.png");
         bPermisos.setIcon(iconoPermisos);
 
-        ImageIcon iconoCopiar = new ImageIcon("copiar.png");
+        ImageIcon iconoCopiar = new ImageIcon(currentDirectory+"\\copiar.png");
         bCopiar.setIcon(iconoCopiar);
 
-        ImageIcon iconoCrear = new ImageIcon("crear.png");
+        ImageIcon iconoCrear = new ImageIcon(currentDirectory+"\\crear.png");
         bCrear.setIcon(iconoCrear);
 
-        ImageIcon iconoBorrar = new ImageIcon("papelera.png");
+        ImageIcon iconoBorrar = new ImageIcon(currentDirectory+"\\papelera.png");
         bBorrar.setIcon(iconoBorrar);
 
-        ImageIcon iconoExtension = new ImageIcon("extension.png");
+        ImageIcon iconoExtension = new ImageIcon(currentDirectory+"\\extension.png");
         bExtension.setIcon(iconoExtension);
 
-        ImageIcon iconoLeer = new ImageIcon("leer.png");
+        ImageIcon iconoLeer = new ImageIcon(currentDirectory+"\\leer.png");
         bLeer.setIcon(iconoLeer);
 
-        ImageIcon iconoEscribir = new ImageIcon("escribir.png");
+        ImageIcon iconoEscribir = new ImageIcon(currentDirectory+"\\escribir.png");
         bEscribir.setIcon(iconoEscribir);
 
-        ImageIcon iconoRuta = new ImageIcon("ruta.png");
+        ImageIcon iconoRuta = new ImageIcon(currentDirectory+"\\ruta.png");
         bRuta.setIcon(iconoRuta);
 
-        ImageIcon iconoLista = new ImageIcon("lista.png");
+        ImageIcon iconoLista = new ImageIcon(currentDirectory+"\\lista.png");
         bListadoD.setIcon(iconoLista);
 
         bPermisos.setIconTextGap(5);
@@ -255,10 +256,6 @@ class centro extends JPanel {
                     archivoActualLeer.setText(f.getAbsolutePath());
                 }
                 }
-                
-                
-
-                
             }
         });
         bEscribir.addActionListener(new ActionListener() {
