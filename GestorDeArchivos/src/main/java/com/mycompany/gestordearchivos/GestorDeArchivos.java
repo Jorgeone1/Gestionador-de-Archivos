@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- *
+ *Gestor de Archivos
  * @author Jorge Wang Wang
  */
 public class GestorDeArchivos {
